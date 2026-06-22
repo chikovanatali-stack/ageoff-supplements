@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f5efe6" />
+  <title>age:off supplements — подбор БАДов</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar" aria-label="Шапка приложения">
+      <a class="brand" href="#home" aria-label="age:off supplements">
+        <span class="brand-mark">a:o</span>
+        <span><strong>age:off</strong><small>supplements</small></span>
+      </a>
+      <button class="cart-chip" type="button" data-open-cart aria-label="Открыть корзину">
+        <span>Корзина</span><b id="cartCount">0</b>
+      </button>
+    </header>
+
+    <main>
+      <section class="hero section" id="home">
+        <div class="hero-card reveal">
+          <p class="eyebrow">premium wellness · made for daily rituals</p>
+          <h1>Персональный ритуал нутриционной поддержки</h1>
+          <p class="hero-text">Подберите БАДы age:off supplements под цели образа жизни: комфорт питания, спокойный ритм, базовые нутриенты и красоту изнутри.</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#quiz">Пройти анкету</a>
+            <a class="btn secondary" href="#catalog">Смотреть каталог</a>
+          </div>
+          <div class="trust-row" aria-label="Преимущества">
+            <span>без лечебных обещаний</span>
+            <span>мягкий подбор</span>
+            <span>для ежедневной рутины</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="catalog">
+        <div class="section-head reveal">
+          <p class="eyebrow">каталог</p>
+          <h2>БАДы age:off</h2>
+          <p>Пять позиций для осознанной wellness-рутины. Информация носит справочный характер.</p>
+        </div>
+        <div class="product-grid" id="productGrid"></div>
+      </section>
+
+      <section class="section quiz-section" id="quiz">
+        <div class="section-head reveal">
+          <p class="eyebrow">анкета подбора</p>
+          <h2>Соберите свою схему</h2>
+          <p>Ответьте на несколько вопросов — приложение предложит продукты для обсуждения с профильным специалистом при необходимости.</p>
+        </div>
+        <form class="quiz-card reveal" id="quizForm">
+          <label class="field">
+            <span>Ваш главный wellness-фокус</span>
+            <select name="goal" required>
+              <option value="basic">Базовая нутриционная поддержка</option>
+              <option value="comfort">Пищевой комфорт</option>
+              <option value="calm">Спокойный ритм и расслабление</option>
+              <option value="beauty">Красота кожи и волос</option>
+              <option value="energy">Энергия и активный день</option>
+            </select>
+          </label>
+
+          <fieldset class="choices">
+            <legend>Что актуально сейчас?</legend>
+            <label><input type="checkbox" name="needs" value="histamine"> Комфорт после насыщенных приемов пищи</label>
+            <label><input type="checkbox" name="needs" value="gut"> Мягкая поддержка пищеварительного баланса</label>
+            <label><input type="checkbox" name="needs" value="sleep"> Вечернее расслабление</label>
+            <label><input type="checkbox" name="needs" value="sun"> Мало солнца или офисный график</label>
+            <label><input type="checkbox" name="needs" value="heart"> Поддержка ежедневного рациона жирными кислотами</label>
+          </fieldset>
+
+          <label class="field">
+            <span>Предпочитаемый формат</span>
+            <select name="format">
+              <option value="minimal">Минимальная схема: 1–2 продукта</option>
+              <option value="balanced">Сбалансированная схема: 2–3 продукта</option>
+              <option value="full">Расширенная схема</option>
+            </select>
+          </label>
+
+          <button class="btn primary full" type="submit">Показать результат</button>
+        </form>
+      </section>
+
+      <section class="section" id="result" aria-live="polite">
+        <div class="result-card reveal" id="resultCard">
+          <p class="eyebrow">результат подбора</p>
+          <h2>Ваша персональная подборка появится здесь</h2>
+          <p>Пройдите анкету, чтобы увидеть мягкую схему поддержки без медицинских обещаний.</p>
+        </div>
+      </section>
+
+      <section class="section" id="cart">
+        <div class="section-head reveal">
+          <p class="eyebrow">корзина</p>
+          <h2>Ваш заказ</h2>
+        </div>
+        <div class="cart-card reveal">
+          <div id="cartItems" class="cart-items empty">Корзина пока пуста. Добавьте продукты из каталога или результата подбора.</div>
+          <div class="cart-total"><span>Итого</span><strong id="cartTotal">0 ₽</strong></div>
+          <button class="btn primary full" type="button" id="checkoutBtn">Оформить заявку</button>
+        </div>
+      </section>
+
+      <section class="section disclaimer" id="disclaimer">
+        <h2>Дисклеймер</h2>
+        <p>БАДы не являются лекарственными средствами. Информация в приложении носит справочный характер, не является медицинской рекомендацией и не предназначена для диагностики, лечения или профилактики заболеваний. Перед применением учитывайте индивидуальные особенности и рекомендации специалиста.</p>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Основная навигация">
+      <a href="#home">Главная</a>
+      <a href="#catalog">Каталог</a>
+      <a href="#quiz">Анкета</a>
+      <a href="#cart">Корзина</a>
+    </nav>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
