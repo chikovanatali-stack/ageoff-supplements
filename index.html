@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="age:off supplements — мобильное wellness-приложение для подбора нутриционной поддержки и оформления заявки." />
+  <title>age:off supplements</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar" aria-label="Главная навигация">
+      <a class="brand" href="#hero" aria-label="age:off supplements">
+        <span class="brand-mark">a:o</span>
+        <span>age:off</span>
+      </a>
+      <a class="cart-pill" href="#cart" aria-label="Перейти в корзину">
+        <span>Корзина</span>
+        <strong id="cartCount">0</strong>
+      </a>
+    </header>
+
+    <main>
+      <section class="hero section-card" id="hero">
+        <div class="eyebrow">premium wellness подбор</div>
+        <h1>age:off supplements</h1>
+        <p class="hero-subtitle">Нутриционная поддержка. Подбор. Заказ.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#quiz">Пройти подбор</a>
+          <a class="button button-secondary" href="#catalog">Смотреть каталог</a>
+        </div>
+        <p class="mini-disclaimer">БАДы не являются лекарственными средствами.</p>
+      </section>
+
+      <section class="section-block" id="catalog">
+        <div class="section-heading">
+          <span class="eyebrow">каталог</span>
+          <h2>Каталог БАДов</h2>
+          <p>Мягкая нутриционная поддержка для повседневного wellness-ритуала.</p>
+        </div>
+        <div class="product-grid" id="productGrid" aria-live="polite"></div>
+      </section>
+
+      <section class="section-card quiz-card" id="quiz">
+        <div class="section-heading compact">
+          <span class="eyebrow">анкета</span>
+          <h2>Анкета подбора</h2>
+          <p>Выберите направление поддержки — результат появится ниже.</p>
+        </div>
+        <fieldset class="support-fieldset">
+          <legend>Что хотите поддержать?</legend>
+          <div class="option-grid" id="supportOptions"></div>
+        </fieldset>
+      </section>
+
+      <section class="section-card result-card" id="result">
+        <div class="section-heading compact">
+          <span class="eyebrow">результат</span>
+          <h2>Результат подбора</h2>
+        </div>
+        <div id="recommendationResult" class="empty-state">
+          Выберите интересующее направление в анкете, чтобы увидеть варианты нутриционной поддержки.
+        </div>
+      </section>
+
+      <section class="section-card routine-card" id="routine">
+        <div class="section-heading compact">
+          <span class="eyebrow">личная схема</span>
+          <h2>Моя схема поддержки</h2>
+          <p>Здесь собирается ваш мягкий wellness-план из каталога и рекомендаций.</p>
+        </div>
+        <div id="routineList" class="empty-state">Пока схема пуста. Добавьте продукты из каталога или результата подбора.</div>
+      </section>
+
+      <section class="section-card cart-card" id="cart">
+        <div class="section-heading compact">
+          <span class="eyebrow">заявка</span>
+          <h2>Корзина / оформление заявки</h2>
+          <p>Проверьте выбранные позиции и оставьте контакты для связи.</p>
+        </div>
+        <div id="cartItems" class="empty-state">Корзина пока пуста.</div>
+        <form class="order-form" id="orderForm">
+          <label>
+            Имя
+            <input type="text" name="name" autocomplete="name" placeholder="Ваше имя" required>
+          </label>
+          <label>
+            Телефон или мессенджер
+            <input type="text" name="contact" autocomplete="tel" placeholder="+7 или @username" required>
+          </label>
+          <label>
+            Комментарий
+            <textarea name="comment" rows="3" placeholder="Например: удобное время для связи"></textarea>
+          </label>
+          <button class="button button-primary" type="submit">Отправить заявку</button>
+          <p class="form-note" id="formNote" role="status"></p>
+        </form>
+      </section>
+    </main>
+
+    <footer class="footer-disclaimer">
+      Информация носит справочный характер и не является медицинской рекомендацией. БАДы не являются лекарственными средствами и не предназначены для диагностики, лечения или профилактики заболеваний.
+    </footer>
+  </div>
+
+  <div class="modal" id="detailsModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-panel">
+      <button class="modal-close" type="button" aria-label="Закрыть">×</button>
+      <span class="eyebrow" id="modalCategory"></span>
+      <h3 id="modalTitle"></h3>
+      <p id="modalDescription"></p>
+      <button class="button button-primary" id="modalAdd" type="button">Добавить</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
