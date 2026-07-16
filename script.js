@@ -59,6 +59,7 @@ const recommendationResult = document.querySelector("#recommendationResult");
 const routineList = document.querySelector("#routineList");
 const cartItems = document.querySelector("#cartItems");
 const cartCount = document.querySelector("#cartCount");
+const floatingCart = document.querySelector("#floatingCart");
 const modal = document.querySelector("#detailsModal");
 const modalTitle = document.querySelector("#modalTitle");
 const modalCategory = document.querySelector("#modalCategory");
@@ -71,13 +72,14 @@ function getProduct(id) {
 }
 
 function productCard(product) {
+  const isAdded = state.cart.has(product.id);
   return `
     <article class="product-card">
       <h3>${product.name}</h3>
       <span class="category-pill">${product.category}</span>
       <p>${product.description}</p>
       <div class="card-actions">
-        <button class="button button-primary" type="button" data-add="${product.id}">Добавить</button>
+        <button class="button button-primary ${isAdded ? "is-added" : ""}" type="button" data-add="${product.id}">${isAdded ? "✓ Добавлено" : "Добавить"}</button>
         <button class="button button-ghost" type="button" data-details="${product.id}">Подробнее</button>
       </div>
     </article>
@@ -85,7 +87,7 @@ function productCard(product) {
 }
 
 function lineItem(product, action = "cart") {
-  const buttonText = action === "remove" ? "Убрать" : "В корзину";
+  const buttonText = action === "remove" ? "Убрать" : state.cart.has(product.id) ? "✓ В корзине" : "В корзину";
   const dataAttr = action === "remove" ? "data-remove" : "data-cart";
   return `
     <article class="line-item">
@@ -94,7 +96,7 @@ function lineItem(product, action = "cart") {
         <span class="category-pill">${product.category}</span>
       </header>
       <p>${product.description}</p>
-      <button class="button ${action === "remove" ? "button-ghost" : "button-primary"}" type="button" ${dataAttr}="${product.id}">${buttonText}</button>
+      <button class="button ${action === "remove" || state.cart.has(product.id) ? "button-ghost" : "button-primary"}" type="button" ${dataAttr}="${product.id}">${buttonText}</button>
     </article>
   `;
 }
@@ -116,13 +118,11 @@ function renderRecommendations() {
     recommendationResult.textContent = "Выберите интересующее направление в анкете, чтобы увидеть варианты нутриционной поддержки.";
     return;
   }
-
   if (ids.length === 0) {
     recommendationResult.className = "empty-state";
     recommendationResult.textContent = "Для выбранного направления подойдет индивидуальная консультация по нутриционной поддержке и базовым привычкам.";
     return;
   }
-
   recommendationResult.className = "recommendation-list";
   recommendationResult.innerHTML = ids.map((id) => lineItem(getProduct(id))).join("");
 }
@@ -141,6 +141,7 @@ function renderRoutine() {
 function renderCart() {
   const ids = [...state.cart];
   cartCount.textContent = ids.length;
+  floatingCart.classList.toggle("has-items", ids.length > 0);
   if (ids.length === 0) {
     cartItems.className = "empty-state";
     cartItems.textContent = "Корзина пока пуста.";
@@ -150,11 +151,21 @@ function renderCart() {
   cartItems.innerHTML = ids.map((id) => lineItem(getProduct(id), "remove")).join("");
 }
 
+function animateCart() {
+  floatingCart.classList.remove("cart-bump");
+  requestAnimationFrame(() => floatingCart.classList.add("cart-bump"));
+  window.setTimeout(() => floatingCart.classList.remove("cart-bump"), 450);
+}
+
 function addProduct(id) {
+  const wasAdded = state.cart.has(id);
   state.routine.add(id);
   state.cart.add(id);
+  renderCatalog();
+  renderRecommendations();
   renderRoutine();
   renderCart();
+  if (!wasAdded) animateCart();
 }
 
 function openDetails(id) {
@@ -163,6 +174,7 @@ function openDetails(id) {
   modalTitle.textContent = product.name;
   modalCategory.textContent = product.category;
   modalDescription.textContent = product.detail;
+  modalAdd.textContent = state.cart.has(id) ? "✓ Уже в корзине" : "Добавить";
   modal.classList.add("is-open");
   modal.setAttribute("aria-hidden", "false");
 }
@@ -184,6 +196,9 @@ document.addEventListener("click", (event) => {
   if (cartButton) addProduct(cartButton.dataset.cart);
   if (removeButton) {
     state.cart.delete(removeButton.dataset.remove);
+    renderCatalog();
+    renderRecommendations();
+    renderRoutine();
     renderCart();
   }
   if (supportButton) {
