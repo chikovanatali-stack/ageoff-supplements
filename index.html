@@ -11,18 +11,29 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="page-shell">
-    <header class="topbar" aria-label="Главная навигация">
+  <header class="floating-header" aria-label="Главная навигация">
+    <div class="floating-header__inner">
       <a class="brand" href="#hero" aria-label="age:off supplements">
         <span class="brand-mark">a:o</span>
         <span>age:off</span>
       </a>
-      <a class="cart-pill" href="#cart" aria-label="Перейти в корзину">
-        <span>Корзина</span>
-        <strong id="cartCount">0</strong>
-      </a>
-    </header>
 
+      <nav class="quick-nav" aria-label="Быстрая навигация">
+        <a href="#catalog">Каталог</a>
+        <a href="#quiz">Подбор</a>
+        <a href="#routine">Схема</a>
+      </nav>
+
+      <a class="cart-pill" id="floatingCart" href="#cart" aria-label="Перейти в корзину">
+        <span class="cart-icon" aria-hidden="true">🛒</span>
+        <span class="cart-label">Корзина</span>
+        <strong id="cartCount">0</strong>
+        <span class="checkout-label" id="checkoutLabel">Оформить</span>
+      </a>
+    </div>
+  </header>
+
+  <div class="page-shell">
     <main>
       <section class="hero section-card" id="hero">
         <div class="eyebrow">premium wellness подбор</div>
